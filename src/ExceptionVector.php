@@ -1,7 +1,7 @@
 <?php
 /**
- * Part of the "charcoal-dev/base" package.
- * @link https://github.com/charcoal-dev/base
+ * Part of the "charcoal-dev/vectors" package.
+ * @link https://github.com/charcoal-dev/vectors
  */
 
 declare(strict_types=1);
