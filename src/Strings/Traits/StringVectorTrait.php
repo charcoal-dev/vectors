@@ -15,6 +15,8 @@ namespace Charcoal\Vectors\Strings\Traits;
  */
 trait StringVectorTrait
 {
+    use StringVectorImmutableTrait;
+    
     protected array $strings;
 
     /**

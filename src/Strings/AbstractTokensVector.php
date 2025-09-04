@@ -4,17 +4,12 @@
  * @link https://github.com/charcoal-dev/vectors
  */
 
-/**
- * Part of the "charcoal-dev/base" package.
- * @link https://github.com/charcoal-dev/base
- */
-
 declare(strict_types=1);
 
-namespace Charcoal\Base\Vectors;
+namespace Charcoal\Vectors;
 
 use Charcoal\Contracts\Vectors\StringVectorInterface;
-use Charcoal\Vectors\Strings\StringVectorTrait;
+use Charcoal\Vectors\Strings\Traits\StringVectorTrait;
 
 /**
  * Abstract class representing a vector of tokens with various utility methods
