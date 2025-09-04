@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Charcoal\Vectors;
+namespace Charcoal\Vectors\Strings;
 
 use Charcoal\Contracts\Vectors\StringVectorInterface;
 use Charcoal\Vectors\Strings\Traits\StringVectorTrait;
