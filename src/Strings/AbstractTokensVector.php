@@ -50,7 +50,7 @@ abstract class AbstractTokensVector implements StringVectorInterface
      * @param string $token
      * @return bool
      */
-    final protected function has(string $token): bool
+    final protected function hasToken(string $token): bool
     {
         $token = trim($token);
         if ($token === "") {
