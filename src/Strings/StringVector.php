@@ -20,6 +20,15 @@ final class StringVector implements StringVectorInterface
     use StringVectorTrait;
 
     /**
+     * @param string ...$values
+     */
+    public function __construct(string ...$values)
+    {
+        $this->strings = [];
+        $this->append(...$values);
+    }
+
+    /**
      * @return StringVectorImmutable
      */
     public function toImmutable(): StringVectorImmutable
