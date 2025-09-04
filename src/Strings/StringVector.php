@@ -10,7 +10,7 @@ namespace Charcoal\Base\Vectors;
 
 use Charcoal\Contracts\Vectors\StringVectorInterface;
 use Charcoal\Vectors\Strings\StringVectorImmutable;
-use Charcoal\Vectors\Strings\StringVectorTrait;
+use Charcoal\Vectors\Strings\Traits\StringVectorTrait;
 
 /**
  * Represents a vector of strings with utility methods for appending,
