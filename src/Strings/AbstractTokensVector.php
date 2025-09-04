@@ -24,6 +24,7 @@ abstract class AbstractTokensVector implements StringVectorInterface
         public readonly bool $uniqueTokensOnly = true,
     )
     {
+        $this->strings = [];
     }
 
     /**
