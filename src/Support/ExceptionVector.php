@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Charcoal\Vectors;
+namespace Charcoal\Vectors\Support;
 
 use Charcoal\Contracts\Vectors\VectorInterface;
 

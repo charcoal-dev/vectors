@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Charcoal\Vectors\Support;
 
-use Charcoal\Base\Vectors\AbstractTokensVector;
+use Charcoal\Vectors\Strings\AbstractTokensVector;
 
 /**
  * Represents a specialized collection for handling delimiter-separated value (DSV) tokens.
