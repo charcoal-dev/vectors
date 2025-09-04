@@ -26,12 +26,12 @@ final class DsvTokens extends AbstractTokensVector
     }
 
     /**
-     * @param string ...$tokens
-     * @return self
+     * @param string $token
+     * @return bool
      */
-    public function has(string ...$tokens): self
+    public function has(string $token): bool
     {
-        return $this->addTokens(...$tokens);
+        return $this->hasToken($token);
     }
 
     /**
