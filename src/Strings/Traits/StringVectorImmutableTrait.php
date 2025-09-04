@@ -6,25 +6,14 @@
 
 declare(strict_types=1);
 
-namespace Charcoal\Vectors\Strings;
+namespace Charcoal\Vectors\Strings\Traits;
 
 /**
- * Provides functionality for managing a collection of strings with added capabilities
- * such as appending values, ensuring uniqueness, and retrieving the collection in
- * various forms.
+ * Provides immutable operations for managing a collection of strings.
+ * This trait is intended to be used with classes that handle an internal array of strings.
  */
-trait StringVectorTrait
+trait StringVectorImmutableTrait
 {
-    protected array $strings;
-
-    /**
-     * @param string ...$values
-     */
-    public function __construct(string ...$values)
-    {
-        $this->strings = $values;
-    }
-
     /**
      * @param string $glue
      * @return string
@@ -36,14 +25,6 @@ trait StringVectorTrait
         }
 
         return implode($glue, $this->strings);
-    }
-
-    /**
-     * @return int
-     */
-    public function count(): int
-    {
-        return count($this->strings);
     }
 
     /**
