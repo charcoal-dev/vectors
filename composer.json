@@ -2,7 +2,7 @@
   "name": "charcoal-dev/vectors",
   "description": "Vectors library for N-dim arrays",
   "type": "library",
-  "homepage": "https://github.com/charcoal-dev/buffers",
+  "homepage": "https://github.com/charcoal-dev/vectors",
   "license": "MIT",
   "authors": [
     {
