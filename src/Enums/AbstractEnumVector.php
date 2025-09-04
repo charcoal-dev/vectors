@@ -68,7 +68,6 @@ abstract class AbstractEnumVector implements VectorInterface
      * @param int|class-string $index
      * @param null|array<string, array<string, int|string|null>> $classmap
      * @return null|array<int|string|null>
-     * @api
      */
     protected function getCaseValues(int|string $index, ?array $classmap = null): ?array
     {
@@ -77,8 +76,8 @@ abstract class AbstractEnumVector implements VectorInterface
             return null;
         }
 
-        if ($this->sorting && $cases) {
-            sort($cases, is_int($cases[0]) ? SORT_NUMERIC : SORT_STRING);
+        if ($this->sorting && count($cases)) {
+            sort($cases, array_is_list($cases) ? SORT_NUMERIC : SORT_STRING);
         }
 
         return array_values($cases);
@@ -88,7 +87,6 @@ abstract class AbstractEnumVector implements VectorInterface
      * @param int|class-string $index
      * @param null|array<string, array<string, int|string|null>> $classmap
      * @return null|string[]
-     * @api
      */
     protected function getCaseNames(int|string $index, ?array $classmap = null): ?array
     {
