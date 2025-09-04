@@ -81,7 +81,7 @@ abstract class AbstractEnumVector implements VectorInterface
             sort($cases, is_int($cases[0]) ? SORT_NUMERIC : SORT_STRING);
         }
 
-        return $cases;
+        return array_values($cases);
     }
 
     /**

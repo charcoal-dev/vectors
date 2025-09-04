@@ -15,7 +15,7 @@ use Charcoal\Vectors\Enums\AbstractEnumVector;
  */
 class TestEnumBag extends AbstractEnumVector
 {
-    public function __construct(TestEnum ...$values)
+    public function __construct(\UnitEnum ...$values)
     {
         parent::__construct(...$values);
     }
