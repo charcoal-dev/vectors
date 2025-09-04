@@ -8,13 +8,12 @@ declare(strict_types=1);
 
 namespace Charcoal\Vectors\Support;
 
-use Charcoal\Contracts\Vectors\VectorInterface;
+use Charcoal\Contracts\Vectors\ExceptionsVectorInterface;
 
 /**
  * A vector-like structure that stores exceptions.
- * @implements VectorInterface<\Throwable>
  */
-final class ExceptionVector implements VectorInterface
+final class ExceptionBag implements ExceptionsVectorInterface
 {
     private array $vector;
 
