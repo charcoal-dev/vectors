@@ -231,4 +231,23 @@ final class DsvTokensTest extends TestCase
         $this->assertSame("A\tb\tC", $tokens->join("\t"));
         $this->assertSame("A\0b\0C", $tokens->join("\0"));
     }
+
+    public function testHasIsCaseInsensitiveAndTrimsInput(): void
+    {
+        $t1 = new DsvTokens(); // default: case-normalizing and unique
+        $t1->add("Foo");
+
+        $this->assertTrue($t1->has("foo"));
+        $this->assertTrue($t1->has("FOO"));
+        $this->assertTrue($t1->has("  Foo \t"));
+        $this->assertFalse($t1->has("bar"));
+        $this->assertFalse($t1->has(""));
+        $this->assertFalse($t1->has("   "));
+
+        $t2 = new DsvTokens(changeCase: false, uniqueTokensOnly: false);
+        $t2->add("Bar");
+
+        $this->assertTrue($t2->has("bar"));
+        $this->assertTrue($t2->has("BAR"));
+    }
 }

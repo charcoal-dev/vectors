@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Charcoal\Vectors\Tests;
 
 use Charcoal\Vectors\Strings\StringVector;
+use Charcoal\Vectors\Strings\StringVectorImmutable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,6 +17,27 @@ use PHPUnit\Framework\TestCase;
  */
 final class StringVectorTest extends TestCase
 {
+    public function testImmutableGetArrayForeachOrderCountAndJoin(): void
+    {
+        $imm = new StringVectorImmutable("A", "b", "C");
+
+        // getArray reflects constructor input
+        $this->assertSame(["A", "b", "C"], $imm->getArray());
+
+        // foreach iteration preserves order
+        $iterated = [];
+        foreach ($imm as $v) {
+            $iterated[] = $v;
+        }
+        $this->assertSame(["A", "b", "C"], $iterated);
+
+        // count matches number of elements
+        $this->assertSame(3, $imm->count());
+
+        // join accepts single-byte glue
+        $this->assertSame("A,b,C", $imm->join(","));
+    }
+
     public function testAppendTrimsSkipsAndChainsWithBinaryAndWhitespace(): void
     {
         $vec = new StringVector();
@@ -105,5 +127,18 @@ final class StringVectorTest extends TestCase
         $this->assertSame(3, $vec->count());
         $vec->filterUnique();
         $this->assertSame(3, $vec->count());
+    }
+
+    public function testForeachIteratesInSameOrderAsGetArray(): void
+    {
+        $vec = new StringVector();
+        $vec->append("a", "b", "c");
+
+        $iterated = [];
+        foreach ($vec as $value) {
+            $iterated[] = $value;
+        }
+
+        $this->assertSame($vec->getArray(), $iterated);
     }
 }

@@ -30,6 +30,30 @@ abstract class AbstractEnumVector implements VectorInterface
     }
 
     /**
+     * @return int
+     */
+    public function count(): int
+    {
+        return count($this->cases);
+    }
+
+    /**
+     * @return \Traversable<int,T>
+     */
+    public function getIterator(): \Traversable
+    {
+        return new \ArrayIterator($this->cases);
+    }
+
+    /**
+     * @return array<int,T>
+     */
+    public function getArray(): array
+    {
+        return $this->cases;
+    }
+
+    /**
      * @return $this
      */
     public function filterUnique(): static
