@@ -14,7 +14,7 @@ use Charcoal\Contracts\Vectors\VectorInterface;
  * A vector-like structure that stores exceptions.
  * @implements VectorInterface<\Throwable>
  */
-class ExceptionVector implements VectorInterface
+final class ExceptionVector implements VectorInterface
 {
     private array $vector;
 
