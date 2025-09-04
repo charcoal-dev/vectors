@@ -30,7 +30,7 @@ final class ExceptionVector implements VectorInterface
      * @param \Throwable $exception
      * @return $this
      */
-    public function append(\Throwable $exception): static
+    public function append(\Throwable $exception): self
     {
         $this->vector[] = $exception;
         return $this;
