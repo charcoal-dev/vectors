@@ -18,7 +18,7 @@ final class DsvTokensTest extends TestCase
 {
     public function testAddTrimsLowercasesAndDedupesByDefault(): void
     {
-        $tokens = new DsvTokens(); // default: changeCase=true, uniqueTokensOnly=true
+        $tokens = new DsvTokens(","); // default: changeCase=true, uniqueTokensOnly=true
 
         $returned = $tokens->add(" A ", "a", "", "B", "b", "\n");
 
@@ -28,7 +28,7 @@ final class DsvTokensTest extends TestCase
 
     public function testAddKeepsOriginalCaseWhenChangeCaseFalseAndDedupesCaseInsensitively(): void
     {
-        $tokens = new DsvTokens(changeCase: false, uniqueTokensOnly: true);
+        $tokens = new DsvTokens(",",changeCase: false, uniqueTokensOnly: true);
 
         $tokens->add(" A ", "a", "B", "b", "b");
 
@@ -37,7 +37,7 @@ final class DsvTokensTest extends TestCase
 
     public function testAddDoesNotDeduplicateWhenUniqueTokensOnlyFalse(): void
     {
-        $tokens = new DsvTokens(changeCase: true, uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",changeCase: true, uniqueTokensOnly: false);
 
         $tokens->add("x", "X", "x");
 
@@ -46,7 +46,7 @@ final class DsvTokensTest extends TestCase
 
     public function testAddSkipsPureWhitespaceAndControlChars(): void
     {
-        $tokens = new DsvTokens();
+        $tokens = new DsvTokens(",");
 
         $tokens->add(" \t ", "\n", "\r", " a ");
 
@@ -55,7 +55,7 @@ final class DsvTokensTest extends TestCase
 
     public function testDeleteReturnsFalseOnEmptyOrWhitespace(): void
     {
-        $tokens = new DsvTokens();
+        $tokens = new DsvTokens(",");
         $tokens->add("a");
 
         $this->assertFalse($tokens->delete(""));
@@ -65,7 +65,7 @@ final class DsvTokensTest extends TestCase
 
     public function testDeleteReturnsFalseWhenTokenNotFound(): void
     {
-        $tokens = new DsvTokens();
+        $tokens = new DsvTokens(",");
         $tokens->add("a", "b");
 
         $this->assertFalse($tokens->delete("z"));
@@ -74,7 +74,7 @@ final class DsvTokensTest extends TestCase
 
     public function testDeleteRemovesExactMatchOnlyWhenChangeCaseFalse(): void
     {
-        $tokens = new DsvTokens(changeCase: false, uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",changeCase: false, uniqueTokensOnly: false);
         $tokens->add("Foo", "foo", "FOO", "Bar");
 
         $deleted = $tokens->delete("foo");
@@ -85,7 +85,7 @@ final class DsvTokensTest extends TestCase
 
     public function testDeleteRemovesAllCaseInsensitiveMatchesWhenChangeCaseTrue(): void
     {
-        $tokens = new DsvTokens(changeCase: true, uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",changeCase: true, uniqueTokensOnly: false);
         $tokens->add("Foo", "foo", "FOO", "Bar");
 
         $deleted = $tokens->delete("foo");
@@ -96,7 +96,7 @@ final class DsvTokensTest extends TestCase
 
     public function testFluentChainingWorksAndIgnoresEmpties(): void
     {
-        $tokens = new DsvTokens(uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",uniqueTokensOnly: false);
 
         $tokens
             ->add("a")
@@ -109,7 +109,7 @@ final class DsvTokensTest extends TestCase
 
     public function testAddWithNoTokensReturnsSelfAndNoChange(): void
     {
-        $tokens = new DsvTokens();
+        $tokens = new DsvTokens(",");
         $before = $tokens->getArray();
 
         $returned = $tokens->add();
@@ -121,7 +121,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testAddSkipsWhitespaceOnlyAndControlBytesThatTrimToEmpty(): void
     {
-        $tokens = new DsvTokens();
+        $tokens = new DsvTokens(",");
         // "\0" and "\r\n" are trimmed to empty; " a " becomes "a"
         $tokens->add("\0", "\r\n", " \t ", " a ");
 
@@ -131,7 +131,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testAddBinaryBytesAreKeptAndAsciiIsLowercasedByDefault(): void
     {
-        $tokens = new DsvTokens(); // changeCase=true
+        $tokens = new DsvTokens(","); // changeCase=true
         // "\x80" is non-ASCII and unaffected by strtolower; "A" becomes "a"
         $tokens->add("A\x80", "B");
 
@@ -141,7 +141,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testAddKeepsOriginalCaseWhenChangeCaseFalse(): void
     {
-        $tokens = new DsvTokens(changeCase: false);
+        $tokens = new DsvTokens(",",changeCase: false);
         $tokens->add("A", "a", "B");
 
         // With uniqueTokensOnly=true (default), first occurrences are kept
@@ -151,7 +151,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testAddAllowsDuplicatesWhenUniqueTokensOnlyFalse(): void
     {
-        $tokens = new DsvTokens(changeCase: true, uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",changeCase: true, uniqueTokensOnly: false);
         $tokens->add("X", "x", "x");
 
         $this->assertSame(["x", "x", "x"], $tokens->getArray());
@@ -160,7 +160,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testDeleteTrimsInputAndRemovesMatches(): void
     {
-        $tokens = new DsvTokens(uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",uniqueTokensOnly: false);
         $tokens->add("foo", "bar", "baz");
 
         $deleted = $tokens->delete("  foo\t");
@@ -172,7 +172,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testDeleteReturnsFalseForEmptyOrWhitespace(): void
     {
-        $tokens = new DsvTokens();
+        $tokens = new DsvTokens(",");
         $tokens->add("a");
 
         $this->assertFalse($tokens->delete(""));
@@ -184,7 +184,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testDeleteRemovesOnlyExactMatchesWhenChangeCaseFalse(): void
     {
-        $tokens = new DsvTokens(changeCase: false, uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",changeCase: false, uniqueTokensOnly: false);
         $tokens->add("Foo", "foo", "FOO", "Bar");
 
         $deleted = $tokens->delete("foo");
@@ -196,7 +196,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testOrderStabilityAfterMultipleDeletes(): void
     {
-        $tokens = new DsvTokens(uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",uniqueTokensOnly: false);
         $tokens->add("a", "b", "c", "b", "d");
 
         $tokens->delete("b");
@@ -208,7 +208,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testFluentChainingWithBinaryAndWhitespaceInputs(): void
     {
-        $tokens = new DsvTokens(uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",uniqueTokensOnly: false);
 
         $tokens
             ->add(" a ", "\t", "\0", "b")
@@ -224,7 +224,7 @@ final class DsvTokensTest extends TestCase
     // ... existing code ...
     public function testJoinAcceptsSingleByteGlueIncludingControlAndNul(): void
     {
-        $tokens = new DsvTokens(changeCase: false, uniqueTokensOnly: false);
+        $tokens = new DsvTokens(",",changeCase: false, uniqueTokensOnly: false);
         $tokens->add("A", "b", "C");
 
         $this->assertSame("A,b,C", $tokens->join(","));
@@ -234,7 +234,7 @@ final class DsvTokensTest extends TestCase
 
     public function testHasIsCaseInsensitiveAndTrimsInput(): void
     {
-        $t1 = new DsvTokens(); // default: case-normalizing and unique
+        $t1 = new DsvTokens(","); // default: case-normalizing and unique
         $t1->add("Foo");
 
         $this->assertTrue($t1->has("foo"));
@@ -244,7 +244,7 @@ final class DsvTokensTest extends TestCase
         $this->assertFalse($t1->has(""));
         $this->assertFalse($t1->has("   "));
 
-        $t2 = new DsvTokens(changeCase: false, uniqueTokensOnly: false);
+        $t2 = new DsvTokens(",",changeCase: false, uniqueTokensOnly: false);
         $t2->add("Bar");
 
         $this->assertTrue($t2->has("bar"));

@@ -20,8 +20,9 @@ abstract class AbstractTokensVector implements StringVectorInterface
     use StringVectorTrait;
 
     public function __construct(
-        public readonly bool $changeCase = true,
-        public readonly bool $uniqueTokensOnly = true,
+        public readonly string $delimiter,
+        public readonly bool   $changeCase = true,
+        public readonly bool   $uniqueTokensOnly = true,
     )
     {
         $this->strings = [];
@@ -37,6 +38,10 @@ abstract class AbstractTokensVector implements StringVectorInterface
         foreach ($values as $value) {
             $normalized = $this->normalizeStringValue($value);
             if ($normalized) {
+                if (str_contains($normalized, $this->delimiter)) {
+                    throw new \InvalidArgumentException("Delimiter byte not allowed in token");
+                }
+
                 $this->strings[] = $normalized;
                 $added++;
             }
